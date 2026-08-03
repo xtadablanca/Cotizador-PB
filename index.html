@@ -353,7 +353,7 @@ footer strong{color:var(--pb-purple);}
         </div>
       </label>
     </div>
-    <!-- OPCIÓN EXCEPCIÓN -->
+    <!-- OPCIÓN EXCEPCIÓN: solo precio (±) y cuotas sin interés, sin modo contado -->
     <div style="margin-top:10px;">
       <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
         <input type="checkbox" id="chk-excepcion" onchange="toggleExcepcion(this)"
@@ -362,45 +362,74 @@ footer strong{color:var(--pb-purple);}
           <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;color:#c0392b;">
             🔐 Autorizar excepción
           </div>
+          <div style="font-size:10px;color:#aaa;margin-top:2px;">
+            Habilita modificación de precio (±) y cuotas sin interés
+          </div>
         </div>
       </label>
-      <div id="excepcion-badge" style="display:none;margin-top:8px;background:#fdf0f0;border:1.5px solid #e74c3c;border-radius:10px;padding:8px 14px;">
+      <div id="excepcion-badge" style="display:none;margin-top:6px;background:#fdf0f0;border:1.5px solid #e74c3c;border-radius:10px;padding:8px 14px;">
         <div style="display:flex;align-items:center;gap:8px;">
-          <span style="font-size:16px;">🔓</span>
-          <div style="flex:1;">
-            <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;color:#c0392b;">Excepción activa</div>
-            <div style="font-size:10px;color:#888;">Precio libre + cuotas sin interés habilitados</div>
-          </div>
-          <button onclick="desactivarExcepcion()" style="padding:4px 10px;border-radius:7px;
-            border:1.5px solid #e74c3c;background:white;color:#c0392b;font-size:10px;
-            font-family:'Montserrat',sans-serif;font-weight:700;cursor:pointer;">✕ Desactivar</button>
+          <span style="font-size:15px;">🔓</span>
+          <div style="flex:1;font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;color:#c0392b;">Excepción activa</div>
+          <button onclick="desactivarExcepcion()" style="padding:4px 10px;border-radius:7px;border:1.5px solid #e74c3c;background:white;color:#c0392b;font-size:10px;font-family:'Montserrat',sans-serif;font-weight:700;cursor:pointer;">✕</button>
         </div>
       </div>
     </div>
-    <!-- OPCIÓN OTROS (descuento al contado) -->
+    <!-- OPCIÓN CONTADO: descuento al contado -->
     <div style="margin-top:10px;">
       <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
-        <input type="checkbox" id="chk-otros" onchange="toggleOtros(this)"
+        <input type="checkbox" id="chk-contado" onchange="toggleContado(this)"
           style="width:18px;height:18px;cursor:pointer;accent-color:#8e44ad;">
         <div>
           <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;color:#8e44ad;">
-            🔐 Otros
+            🔐 Precio al contado
+          </div>
+          <div style="font-size:10px;color:#aaa;margin-top:2px;">
+            Habilita modificación de precio para pago al contado
           </div>
         </div>
       </label>
-      <div id="otros-badge" style="display:none;margin-top:8px;background:#f9f0ff;border:1.5px solid #8e44ad;border-radius:10px;padding:8px 14px;">
+      <div id="contado-badge" style="display:none;margin-top:6px;background:#f9f0ff;border:1.5px solid #8e44ad;border-radius:10px;padding:8px 14px;">
         <div style="display:flex;align-items:center;gap:8px;">
-          <span style="font-size:16px;">💜</span>
-          <div style="flex:1;">
-            <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;color:#8e44ad;">Otros activo</div>
-            <div style="font-size:10px;color:#888;">Modificación de precio al contado habilitada</div>
-          </div>
-          <button onclick="desactivarOtros()" style="padding:4px 10px;border-radius:7px;
-            border:1.5px solid #8e44ad;background:white;color:#8e44ad;font-size:10px;
-            font-family:'Montserrat',sans-serif;font-weight:700;cursor:pointer;">✕ Desactivar</button>
+          <span style="font-size:15px;">💜</span>
+          <div style="flex:1;font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;color:#8e44ad;">Precio al contado activo</div>
+          <button onclick="desactivarContado()" style="padding:4px 10px;border-radius:7px;border:1.5px solid #8e44ad;background:white;color:#8e44ad;font-size:10px;font-family:'Montserrat',sans-serif;font-weight:700;cursor:pointer;">✕</button>
         </div>
       </div>
     </div>
+    <!-- OPCIÓN TEA PERSONALIZADA -->
+    <div style="margin-top:10px;">
+      <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+        <input type="checkbox" id="chk-tea" onchange="toggleTEA(this)"
+          style="width:18px;height:18px;cursor:pointer;accent-color:#1a7a4a;">
+        <div>
+          <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;color:#1a7a4a;">
+            📊 Modificar TEA
+          </div>
+          <div style="font-size:10px;color:#aaa;margin-top:2px;">
+            Cambia la tasa de interés anual para el financiamiento del saldo
+          </div>
+        </div>
+      </label>
+      <div id="tea-badge" style="display:none;margin-top:6px;background:#f0fdf4;border:1.5px solid #1a7a4a;border-radius:10px;padding:10px 14px;">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <div style="flex:1;">
+            <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;color:#1a7a4a;margin-bottom:6px;">TEA para el financiamiento del saldo</div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <input type="number" id="tea-global-input" min="0" max="100" step="0.1" value="22"
+                style="width:80px;padding:6px 10px;border-radius:8px;border:1.5px solid #1a7a4a;
+                  font-family:'Montserrat',sans-serif;font-weight:700;font-size:18px;
+                  color:#1a7a4a;outline:none;text-align:center;"
+                oninput="onTeaGlobalChange(this.value)">
+              <span style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:16px;color:#1a7a4a;">% anual</span>
+              <span id="tea-mensual-label" style="font-size:10px;color:#888;"></span>
+            </div>
+          </div>
+          <button onclick="desactivarTEA()" style="padding:4px 10px;border-radius:7px;border:1.5px solid #1a7a4a;background:white;color:#1a7a4a;font-size:10px;font-family:'Montserrat',sans-serif;font-weight:700;cursor:pointer;">✕</button>
+        </div>
+      </div>
+    </div>
+
   </div>
   <div id="card-container">
     <div class="empty-state">
@@ -421,6 +450,12 @@ footer strong{color:var(--pb-purple);}
 // ── TASA: TEA 22% → tasa mensual fija ──
 const TASA_MENSUAL = Math.pow(1.22, 1/12) - 1;
 function getTasa(n){ return TASA_MENSUAL; }
+function getSlotTasa(slot){
+  if(teaActiva && teaGlobal>0){
+    return Math.pow(1 + teaGlobal/100, 1/12) - 1;
+  }
+  return TASA_MENSUAL;
+}
 
 // ── DATA ──
 const DATA={
@@ -595,18 +630,11 @@ function calcValidez(){
 let activeProject=null, moneda='PEN';
 let loteSlots=[];
 const maxSlots=4;
-let excepcionActiva=false;
-let otrosActivo=false;
-const PASS_EXCEPCION='130119';
-
-function reglaNivel(pct){
-  if(pct<0.10) return 0; if(pct<0.15) return 1;
-  if(pct<0.20) return 2; if(pct<0.25) return 3; return 4;
-}
-function reglaLabel(nivel){
-  return['','✅ 10–14% → Inicial fraccionable en hasta 2 cuotas','✅ 15–19% → Hasta 3 cuotas','✅ 20–24% → Hasta 4 cuotas','✅ 25%+ → Hasta 5 cuotas'][nivel]||'';
-}
-function reglaCls(nivel){return['nv0','nv1','nv2','nv3','nv3'][nivel];}
+let excepcionActiva=false; // precio(±) + SI cuotas
+let contadoActivo=false;   // precio solo a la baja + pago contado
+let teaActiva=false;
+let teaGlobal=22;
+const PASS_EXCEPCION='1301';
 
 // ── MONEDA / PROYECTO ──
 function setMoneda(m){
@@ -631,7 +659,7 @@ function addLoteSlot(){
   if(!activeProject){alert('Primero selecciona un proyecto');return;}
   if(loteSlots.length>=maxSlots){alert(`Máximo ${maxSlots} lotes`);return;}
   const idx=loteSlots.length;
-  loteSlots.push({lotId:'',ST:{inicialMonto:0,fracCuotas:1,siCuotas:0,ciCuotas:0,precioCustom:0}});
+  loteSlots.push({lotId:'',ST:{inicialMonto:0,fracCuotas:1,siCuotas:0,ciCuotas:0,precioCustom:0,teaCustom:0}});
   renderSlotSelector(idx); updateAddBtn();
 }
 function removeLoteSlot(idx){
@@ -670,7 +698,7 @@ function renderSlotSelector(idx){
 
 function onSlotLotChange(idx,lotId){
   loteSlots[idx].lotId=lotId;
-  loteSlots[idx].ST={inicialMonto:0,fracCuotas:1,siCuotas:0,ciCuotas:0,precioCustom:0};
+  loteSlots[idx].ST={inicialMonto:0,fracCuotas:1,siCuotas:0,ciCuotas:0,precioCustom:0,teaCustom:0};
   renderAllCards();
 }
 
@@ -701,35 +729,78 @@ function renderAllCards(){
 }
 function renderAllSlots(){loteSlots.forEach((_,i)=>{if(loteSlots[i].lotId) renderCard(i);});}
 
-// ── EXCEPCIÓN ──
+// ── SLOT INPUT HANDLERS ──
 function toggleExcepcion(chk){
   if(chk.checked){
-    const pass=prompt('Ingresa la contraseña de autorización:');
+    const pass=prompt('Ingresa la contraseña:');
     if(pass===PASS_EXCEPCION){
       excepcionActiva=true;
       document.getElementById('excepcion-badge').style.display='block';
       renderAllSlots();
-    } else {
-      alert('Contraseña incorrecta.');
-      chk.checked=false;
-    }
-  } else {
-    desactivarExcepcion();
-  }
+    } else { alert('Contraseña incorrecta.'); chk.checked=false; }
+  } else { desactivarExcepcion(); }
 }
 function desactivarExcepcion(){
   excepcionActiva=false;
   const chk=document.getElementById('chk-excepcion');
   if(chk) chk.checked=false;
   document.getElementById('excepcion-badge').style.display='none';
-  loteSlots.forEach(s=>{s.ST.siCuotas=0;});
+  loteSlots.forEach(s=>{s.ST.siCuotas=0; s.ST.precioCustom=0;});
   renderAllSlots();
 }
+
+function toggleContado(chk){
+  if(chk.checked){
+    const pass=prompt('Ingresa la contraseña:');
+    if(pass===PASS_EXCEPCION){
+      contadoActivo=true;
+      document.getElementById('contado-badge').style.display='block';
+      renderAllSlots();
+    } else { alert('Contraseña incorrecta.'); chk.checked=false; }
+  } else { desactivarContado(); }
+}
+function desactivarContado(){
+  contadoActivo=false;
+  const chk=document.getElementById('chk-contado');
+  if(chk) chk.checked=false;
+  document.getElementById('contado-badge').style.display='none';
+  loteSlots.forEach(s=>{s.ST.precioCustom=0;});
+  renderAllSlots();
+}
+
+function toggleTEA(chk){
+  if(chk.checked){
+    teaActiva=true;
+    document.getElementById('tea-badge').style.display='block';
+    onTeaGlobalChange(document.getElementById('tea-global-input').value);
+    renderAllSlots();
+  } else {
+    desactivarTEA();
+  }
+}
+function desactivarTEA(){
+  teaActiva=false;
+  teaGlobal=22;
+  const chk=document.getElementById('chk-tea');
+  if(chk) chk.checked=false;
+  document.getElementById('tea-badge').style.display='none';
+  const inp=document.getElementById('tea-global-input');
+  if(inp) inp.value=22;
+  renderAllSlots();
+}
+function onTeaGlobalChange(v){
+  teaGlobal=parseFloat(v)||22;
+  const tm=Math.pow(1+teaGlobal/100,1/12)-1;
+  const lbl=document.getElementById('tea-mensual-label');
+  if(lbl) lbl.textContent=`(${(tm*100).toFixed(4)}% mensual)`;
+  renderAllSlots();
+}
+
 function toggleOtros(chk){
   if(chk.checked){
     const pass=prompt('Ingresa la contraseña de autorización:');
     if(pass===PASS_EXCEPCION){
-      otrosActivo=true;
+      excepcionActiva=true;
       document.getElementById('otros-badge').style.display='block';
       renderAllSlots();
     } else {
@@ -741,7 +812,7 @@ function toggleOtros(chk){
   }
 }
 function desactivarOtros(){
-  otrosActivo=false;
+  excepcionActiva=false;
   const chk=document.getElementById('chk-otros');
   if(chk) chk.checked=false;
   document.getElementById('otros-badge').style.display='none';
@@ -770,159 +841,160 @@ function slotPrecioInput(idx,v){
 function slotFrac(idx,n){loteSlots[idx].ST.fracCuotas=n; updateSlotCalc(idx);}
 function slotCiInput(idx,v){loteSlots[idx].ST.ciCuotas=parseInt(v)||0; updateSlotCalc(idx);}
 function slotSiInput(idx,v){loteSlots[idx].ST.siCuotas=parseInt(v)||0; updateSlotCalc(idx);}
+function slotTeaInput(idx,v){
+  const tea=parseFloat(v)||0;
+  loteSlots[idx].ST.teaCustom=tea;
+  updateSlotCalc(idx);
+}
 
 // ── RENDER INDIVIDUAL CARD ──
 function renderCard(idx){
+  try{
   const slot=loteSlots[idx]; if(!slot||!slot.lotId) return;
   const proj=DATA[activeProject];
   const lot=proj.lots.find(l=>l.id===slot.lotId); if(!lot) return;
   const th=proj.theme, isBDN=th==='bdn', isPDM=th==='pdm';
-  const p=precio(lot,slot.ST.precioCustom), sx=S();
+  const p=precio(lot,slot.ST.precioCustom||0), sx=S();
   const pcClass=moneda==='PEN'?'moneda-pen':'moneda-usd';
   const monedaLabel=moneda==='PEN'?'Soles (PEN)':'Dólares (USD)';
+  const precioOriginal=precioBase(lot);
+  const esBaja=slot.ST.precioCustom>0&&slot.ST.precioCustom<precioOriginal;
+  const descuento=esBaja?precioOriginal-slot.ST.precioCustom:0;
 
   let extraSpecs='';
-  if(isPDM) extraSpecs=`
-    <div class="spec-item"><div class="spec-label">Frente</div><div class="spec-value">${lot.frente} m</div></div>
-    <div class="spec-item"><div class="spec-label">Largo</div><div class="spec-value">${lot.largo} m</div></div>
-    <div class="spec-item"><div class="spec-label">Etapa</div><div class="spec-value">${lot.etapa}</div></div>`;
+  if(isPDM) extraSpecs='<div class="spec-item"><div class="spec-label">Frente</div><div class="spec-value">'+lot.frente+' m</div></div>'
+    +'<div class="spec-item"><div class="spec-label">Largo</div><div class="spec-value">'+lot.largo+' m</div></div>'
+    +'<div class="spec-item"><div class="spec-label">Etapa</div><div class="spec-value">'+lot.etapa+'</div></div>';
 
-  const ubicTag=isBDN&&lot.obs&&lot.obs!=='—'
-    ?`<div class="ubicacion-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>${lot.obs}</div>`
-    :isPDM?`<div class="ubicacion-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z"/></svg>Vista: ${lot.vista}</div>`:'';
+  let ubicTag='';
+  if(isBDN&&lot.obs&&lot.obs!=='—') ubicTag='<div class="ubicacion-tag">'+lot.obs+'</div>';
+  else if(isPDM) ubicTag='<div class="ubicacion-tag">Vista: '+lot.vista+'</div>';
 
-  const fracBtns=[1,2,3,4,5].map(n=>`<button id="frac-btn-${idx}-${n}" class="frac-btn" onclick="slotFrac(${idx},${n})">${n}c</button>`).join('');
+  const fracBtns=[1,2,3,4,5].map(n=>'<button id="frac-btn-'+idx+'-'+n+'" class="frac-btn" onclick="slotFrac('+idx+','+n+')">'+n+'c</button>').join('');
 
-  const el=document.getElementById(`card-slot-${idx}`); if(!el) return;
+  // Precio campo (excepcion o contado)
+  let precioCampoHtml='';
+  if(excepcionActiva||contadoActivo){
+    precioCampoHtml='<div style="margin-top:6px;display:flex;align-items:center;gap:6px;justify-content:center;">'
+      +'<span style="font-size:11px;opacity:.6;">✏️ Modificar precio:</span>'
+      +'<div style="position:relative;">'
+      +'<span style="position:absolute;left:9px;top:50%;transform:translateY(-50%);font-weight:700;font-size:12px;color:var(--pb-dark);">'+sx+'</span>'
+      +'<input type="number" value="'+(slot.ST.precioCustom||p)+'" min="0" step="1"'
+      +' style="padding:5px 8px 5px 24px;border-radius:7px;border:1.5px solid rgba(142,68,173,.4);'
+      +'background:rgba(255,255,255,.2);font-size:12px;color:var(--pb-dark);width:140px;outline:none;"'
+      +' oninput="slotPrecioInput('+idx+',this.value)"/>'
+      +'</div>'
+      +(esBaja?'<span style="font-size:10px;color:#8e44ad;font-weight:700;">-'+sx+' '+fmt(descuento)+'</span>':'')
+      +'</div>';
+  }
 
-  // Pre-compute conditional blocks to avoid nested backtick issues
-  const descuentoDisplay=otrosActivo&&slot.ST.precioCustom>0&&slot.ST.precioCustom<p
-    ?`<span style="font-size:10px;color:#8e44ad;font-weight:700;">-${sx} ${fmt(p-(slot.ST.precioCustom))}</span>` : '';
-  const otrosPrecioBlock=otrosActivo?`
-        <div style="margin-top:6px;display:flex;align-items:center;gap:6px;justify-content:center;">
-          <span style="font-size:11px;opacity:.6;">💜 Precio desc.:</span>
-          <div style="position:relative;">
-            <span style="position:absolute;left:9px;top:50%;transform:translateY(-50%);font-weight:700;font-size:12px;color:var(--pb-dark);">${sx}</span>
-            <input type="number" value="${slot.ST.precioCustom||p}" min="0" max="${p}" step="1"
-              style="padding:5px 8px 5px 24px;border-radius:7px;border:1.5px solid rgba(142,68,173,.5);
-                background:rgba(255,255,255,.2);font-size:12px;color:var(--pb-dark);width:130px;outline:none;"
-              oninput="slotPrecioInput(${idx},this.value)"/>
-          </div>
-          ${descuentoDisplay}
-        </div>` : '';
-  const excepcionPrecioBlock=excepcionActiva&&!otrosActivo?`
-        <div style="margin-top:6px;display:flex;align-items:center;gap:6px;justify-content:center;">
-          <span style="font-size:11px;opacity:.6;">🔓 Precio exc.:</span>
-          <div style="position:relative;">
-            <span style="position:absolute;left:9px;top:50%;transform:translateY(-50%);font-weight:700;font-size:12px;color:var(--pb-dark);">${sx}</span>
-            <input type="number" value="${slot.ST.precioCustom||p}" min="0" step="1"
-              style="padding:5px 8px 5px 24px;border-radius:7px;border:1.5px solid rgba(255,0,0,.4);
-                background:rgba(255,255,255,.2);font-size:12px;color:var(--pb-dark);width:130px;outline:none;"
-              oninput="slotPrecioInput(${idx},this.value)"/>
-          </div>
-        </div>` : '';
-  const siCardBlock=excepcionActiva?`
-          <div class="plan-card" style="background:#fff5f5;border:1.5px solid #e74c3c;margin-bottom:10px;">
-            <div class="plan-badge" style="background:#e74c3c;color:white;">🔓 Sin Interés (Excepción)</div>
-            <div class="plan-cuotas-row">
-              <label>Cuotas SI:</label>
-              <input id="si-field-${idx}" type="number" min="0" max="120" value="${slot.ST.siCuotas||0}" oninput="slotSiInput(${idx},this.value)">
-              <span class="max-hint">máx. 120m</span>
-            </div>
-            <div class="cuota-result">
-              <div class="cuota-lbl">Cuota sin interés</div>
-              <div id="si-val-${idx}" class="cuota-val" style="color:#c0392b;">—</div>
-              <div id="si-sub-${idx}" class="cuota-sub">Ingresa número de cuotas</div>
-            </div>
-          </div>` : '';
-  const contadoBlock=otrosActivo?`
-        <div style="background:var(--pb-dark);border-radius:12px;padding:14px 18px;
-          display:flex;justify-content:space-between;align-items:center;">
-          <div>
-            <div style="font-size:10px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.7px;margin-bottom:4px;">
-              💰 Pago al Contado
-            </div>
-            <div id="contado-monto-${idx}" style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:26px;color:white;">
-              ${sx} ${fmt(slot.ST.precioCustom>0?slot.ST.precioCustom:p)}
-            </div>
-          </div>
-          <div style="background:#F7A812;color:var(--pb-dark);border-radius:10px;padding:8px 16px;text-align:center;">
-            <div style="font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px;">Inicial</div>
-            <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:24px;line-height:1;">100%</div>
-          </div>
-        </div>` : '';
-  const financiamientoBlock=otrosActivo?'':`
-        <div class="ini-section">
-          <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;color:var(--pb-dark);margin-bottom:10px;">💰 Cuota Inicial</div>
-          <div class="ini-row">
-            <div class="ini-input-wrap">
-              <span class="ini-sym">${sx}</span>
-              <input type="number" id="ini-field-${idx}" value="" min="0" step="1"
-                oninput="slotInicialInput(${idx},this.value)" placeholder="Ingresa el monto inicial"/>
-            </div>
-            <div id="pct-pill-${idx}" class="pct-pill neutral">—</div>
-          </div>
-          <div id="regla-tag-${idx}" class="regla-tag" style="display:none;"></div>
-          <div id="frac-wrap-${idx}" class="frac-wrap" style="display:none;">
-            <div class="frac-label">Fraccionar inicial en cuotas:</div>
-            <div class="frac-btns">${fracBtns}</div>
-            <div id="frac-result-${idx}" class="frac-result" style="display:none;">
-              <span class="fl">Cuota inicial</span><span id="frac-val-${idx}" class="fv"></span>
-            </div>
-          </div>
-          <div id="saldo-bar-${idx}" class="saldo-bar" style="display:none;">
-            <span class="sl">Saldo a financiar</span><span id="saldo-val-${idx}" class="sv"></span>
-          </div>
-        </div>
-        <div style="background:#f7f9fc;border-radius:12px;padding:10px 12px;margin-bottom:12px;">
-          <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:10px;letter-spacing:.8px;
-            text-transform:uppercase;color:var(--pb-dark);margin-bottom:8px;">📊 Referencia de Iniciales</div>
-          <div id="ref-grid-${idx}" style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px;"></div>
-        </div>
-        <div id="planes-aviso-${idx}" class="aviso" style="display:none;"></div>
-        <div id="plan-wrap-${idx}" style="display:none;">
-          ${siCardBlock}
-          <div class="plan-card ci">
-            <div class="plan-badge">📅 Financiamiento · TEA 22%</div>
-            <div class="plan-cuotas-row">
-              <label>Cuotas CI:</label>
-              <input id="ci-field-${idx}" type="number" min="0" max="120" value="${slot.ST.ciCuotas||0}" oninput="slotCiInput(${idx},this.value)">
-              <span class="max-hint">máx. 120m</span>
-            </div>
-            <div class="cuota-result">
-              <div class="cuota-lbl">Cuota mensual</div>
-              <div id="ci-val-${idx}" class="cuota-val">—</div>
-              <div id="ci-sub-${idx}" class="cuota-sub">Ingresa número de cuotas</div>
-            </div>
-          </div>
-        </div>`;
+  // Bloque 100% contado
+  let contadoHtml='';
+  if(contadoActivo){
+    contadoHtml='<div style="background:var(--pb-dark);border-radius:12px;padding:14px 18px;'
+      +'display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">'
+      +'<div><div style="font-size:10px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.7px;margin-bottom:4px;">💰 Pago al Contado</div>'
+      +'<div id="contado-monto-'+idx+'" style="font-family:\'Montserrat\',sans-serif;font-weight:900;font-size:26px;color:white;">'
+      +sx+' '+fmt(slot.ST.precioCustom>0?slot.ST.precioCustom:p)+'</div></div>'
+      +'<div style="background:#F7A812;color:var(--pb-dark);border-radius:10px;padding:8px 16px;text-align:center;">'
+      +'<div style="font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px;">Inicial</div>'
+      +'<div style="font-family:\'Montserrat\',sans-serif;font-weight:900;font-size:24px;line-height:1;">100%</div>'
+      +'</div></div>';
+  }
 
-  el.innerHTML=`
-  <div class="lot-card card-${th}" style="margin-bottom:20px;">
-    <div class="card-header">
-      <div class="card-badge">${proj.location} · Lote ${idx+1} de ${loteSlots.filter(s=>s.lotId).length}</div>
-      <div class="lote-id">Lote <span>${lot.id}</span></div>
-      <div class="proj-label">${proj.name}</div>
-    </div>
-    <div class="card-body">
-      ${ubicTag}
-      <div class="specs-grid">
-        <div class="spec-item"><div class="spec-label">Área Total</div><div class="spec-value">${lot.area} m²</div></div>
-        ${extraSpecs}
-      </div>
-      <div class="precio-contado ${pcClass}">
-        <div class="pc-label">${monedaLabel} · Precio al contado</div>
-        <div class="pc-amount" id="precio-display-${idx}">${sx} ${fmt(p)}</div>
-        ${otrosPrecioBlock}${excepcionPrecioBlock}
-      </div>
-      <div class="fin-sep">
-        <div class="fin-title">${otrosActivo?'Pago al Contado':'Financiamiento'}</div>
-        ${contadoBlock}${financiamientoBlock}
-      </div>
-    </div>
-  </div>`;
+  // SI card para excepcion
+  let siCardHtml='';
+  if(excepcionActiva){
+    siCardHtml='<div class="plan-card" style="background:#fff5f5;border:1.5px solid #e74c3c;margin-bottom:10px;">'
+      +'<div class="plan-badge" style="background:#e74c3c;color:white;">🔓 Sin Interés (Excepción)</div>'
+      +'<div class="plan-cuotas-row"><label>Cuotas SI:</label>'
+      +'<input id="si-field-'+idx+'" type="number" min="0" max="120" value="'+(slot.ST.siCuotas||0)+'" oninput="slotSiInput('+idx+',this.value)">'
+      +'<span class="max-hint">máx. 120m</span></div>'
+      +'<div class="cuota-result"><div class="cuota-lbl">Cuota sin interés</div>'
+      +'<div id="si-val-'+idx+'" class="cuota-val" style="color:#c0392b;">—</div>'
+      +'<div id="si-sub-'+idx+'" class="cuota-sub">Ingresa número de cuotas</div>'
+      +'</div></div>';
+  }
+
+  // Bloque financiamiento (siempre)
+  const finHtml='<div class="ini-section">'
+    +'<div style="font-family:\'Montserrat\',sans-serif;font-weight:700;font-size:12px;color:var(--pb-dark);margin-bottom:10px;">💰 Cuota Inicial</div>'
+    +'<div class="ini-row"><div class="ini-input-wrap">'
+    +'<span class="ini-sym">'+sx+'</span>'
+    +'<input type="number" id="ini-field-'+idx+'" value="'+(slot.ST.inicialMonto||'')+'" min="0" step="1"'
+    +' oninput="slotInicialInput('+idx+',this.value)" placeholder="Ingresa el monto inicial"/>'
+    +'</div><div id="pct-pill-'+idx+'" class="pct-pill neutral">—</div></div>'
+    +'<div id="regla-tag-'+idx+'" class="regla-tag" style="display:none;"></div>'
+    +'<div id="frac-wrap-'+idx+'" class="frac-wrap" style="display:none;">'
+    +'<div class="frac-label">Fraccionar inicial en cuotas:</div>'
+    +'<div class="frac-btns">'+fracBtns+'</div>'
+    +'<div id="frac-result-'+idx+'" class="frac-result" style="display:none;">'
+    +'<span class="fl">Cuota inicial</span><span id="frac-val-'+idx+'" class="fv"></span></div></div>'
+    +'<div id="saldo-bar-'+idx+'" class="saldo-bar" style="display:none;">'
+    +'<span class="sl">Saldo a financiar</span><span id="saldo-val-'+idx+'" class="sv"></span></div>'
+    +'</div>'
+    +'<div style="background:#f7f9fc;border-radius:12px;padding:10px 12px;margin-bottom:12px;">'
+    +'<div style="font-family:\'Montserrat\',sans-serif;font-weight:700;font-size:10px;letter-spacing:.8px;'
+    +'text-transform:uppercase;color:var(--pb-dark);margin-bottom:8px;">📊 Referencia de Iniciales</div>'
+    +'<div id="ref-grid-'+idx+'" style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px;"></div>'
+    +'</div>'
+    +'<div id="planes-aviso-'+idx+'" class="aviso" style="display:none;"></div>'
+    +'<div id="plan-wrap-'+idx+'" style="display:none;">'
+    +siCardHtml
+    +'<div class="plan-card ci" id="ci-card-'+idx+'">'
+    +'<div class="plan-badge">📅 Financiamiento · TEA '+(teaActiva?teaGlobal+'%':'22%')+'</div>'
+    +'<div class="plan-cuotas-row"><label>Cuotas CI:</label>'
+    +'<input id="ci-field-'+idx+'" type="number" min="0" max="120" value="'+(slot.ST.ciCuotas||0)+'" oninput="slotCiInput('+idx+',this.value)">'
+    +'<span class="max-hint">máx. 120m</span></div>'
+    +'<div class="cuota-result"><div class="cuota-lbl">Cuota mensual</div>'
+    +'<div id="ci-val-'+idx+'" class="cuota-val">—</div>'
+    +'<div id="ci-sub-'+idx+'" class="cuota-sub">Ingresa número de cuotas</div>'
+    +'</div></div></div>';
+
+  const el=document.getElementById('card-slot-'+idx); if(!el) return;
+  el.innerHTML='<div class="lot-card card-'+th+'" style="margin-bottom:20px;">'
+    +'<div class="card-header">'
+    +'<div class="card-badge">'+proj.location+' · Lote '+(idx+1)+' de '+loteSlots.filter(s=>s.lotId).length+'</div>'
+    +'<div class="lote-id">Lote <span>'+lot.id+'</span></div>'
+    +'<div class="proj-label">'+proj.name+'</div>'
+    +'</div>'
+    +'<div class="card-body">'
+    +ubicTag
+    +'<div class="specs-grid">'
+    +'<div class="spec-item"><div class="spec-label">Área Total</div><div class="spec-value">'+lot.area+' m²</div></div>'
+    +extraSpecs
+    +'</div>'
+    +'<div class="precio-contado '+pcClass+'">'
+    +'<div class="pc-label">'+monedaLabel+' · Precio al contado</div>'
+    +'<div class="pc-amount" id="precio-display-'+idx+'">'+sx+' '+fmt(p)+'</div>'
+    +precioCampoHtml
+    +'</div>'
+    +'<div class="fin-sep">'
+    +'<div class="fin-title">'+(contadoActivo?'Pago al Contado':'Financiamiento')+'</div>'
+    +contadoHtml+finHtml
+    +'</div>'
+    +'</div></div>';
+
   updateSlotCalc(idx);
+  }catch(e){console.error('renderCard idx='+idx+' error:',e.message,e);}
 }
+
+// ── REGLAS DE INICIAL ──
+function reglaNivel(pct){
+  if(pct<0.10) return 0;
+  if(pct<0.15) return 1;
+  if(pct<0.20) return 2;
+  if(pct<0.25) return 3;
+  return 4;
+}
+function reglaLabel(nivel){
+  return['',
+    '✅ 10–14% → Inicial fraccionable en hasta 2 cuotas',
+    '✅ 15–19% → Inicial fraccionable en hasta 3 cuotas',
+    '✅ 20–24% → Inicial fraccionable en hasta 4 cuotas',
+    '✅ 25% o más → Inicial fraccionable en hasta 5 cuotas'][nivel]||'';
+}
+function reglaCls(nivel){return['nv0','nv1','nv2','nv3','nv3'][nivel];}
 
 // ── UPDATE CALC (no DOM rebuild) ──
 function updateSlotCalc(idx){
@@ -930,83 +1002,100 @@ function updateSlotCalc(idx){
   const proj=DATA[activeProject];
   const lot=proj.lots.find(l=>l.id===slot.lotId); if(!lot) return;
   const th=proj.theme, sx=S();
-  const p=precio(lot,slot.ST.precioCustom);
-  const ini=slot.ST.inicialMonto;
-  // Mínimo del 10% redondeado hacia arriba para evitar decimales problemáticos
+  const p=precio(lot,slot.ST.precioCustom||0);
+  const ini=slot.ST.inicialMonto||0;
   const minIni=Math.ceil(p*0.10);
   const pct=p>0?ini/p:0;
   const pctStr=(pct*100).toFixed(1)+'%';
   const saldo=Math.max(0,p-ini);
   const nivel=reglaNivel(pct);
-  const nCI=slot.ST.ciCuotas;
+  const nCI=slot.ST.ciCuotas||0;
   const nSI=excepcionActiva?(slot.ST.siCuotas||0):0;
+  const tasa=getSlotTasa(slot);
+  const teaEfectiva=teaActiva?teaGlobal:22;
   let cuotaCI=0, cuotaSI=0;
-  if(nCI>0&&saldo>0) cuotaCI=saldo*TASA_MENSUAL/(1-Math.pow(1+TASA_MENSUAL,-nCI));
+  if(nCI>0&&saldo>0) cuotaCI=saldo*tasa/(1-Math.pow(1+tasa,-nCI));
   if(nSI>0&&saldo>0) cuotaSI=saldo/nSI;
-  // maxFrac y validación usan minIni en lugar de pct<0.10
-  const inicialValida = ini >= minIni;
+  const inicialValida=ini>=minIni;
   const maxFrac=ini>=Math.ceil(p*0.25)?5:ini>=Math.ceil(p*0.20)?4:ini>=Math.ceil(p*0.15)?3:inicialValida?2:0;
   const g=id=>document.getElementById(id);
 
-  const pill=g(`pct-pill-${idx}`);
-  if(pill){pill.textContent=ini>0?pctStr:'—';pill.className='pct-pill '+(ini>0?(inicialValida?`ok-${th}`:'warn'):'neutral');}
+  // Precio display
+  const pd=g('precio-display-'+idx); if(pd) pd.textContent=sx+' '+fmt(p);
+  const cm=g('contado-monto-'+idx); if(cm) cm.textContent=sx+' '+fmt(slot.ST.precioCustom>0?slot.ST.precioCustom:p);
 
-  const rt=g(`regla-tag-${idx}`);
+  // % pill
+  const pill=g('pct-pill-'+idx);
+  if(pill){pill.textContent=ini>0?pctStr:'—';pill.className='pct-pill '+(ini>0?(inicialValida?'ok-'+th:'warn'):'neutral');}
+
+  // Regla tag
+  const rt=g('regla-tag-'+idx);
   if(rt){
-    if(ini>0&&!inicialValida){rt.style.display='';rt.className='regla-tag nv0';rt.textContent=`⚠️ Inicial mínima: 10% (${sx} ${fmt(minIni)})`;}
-    else if(ini>0&&nivel>=1){rt.style.display='';rt.className=`regla-tag ${reglaCls(nivel)}`;rt.textContent=reglaLabel(nivel);}
+    if(ini>0&&!inicialValida){rt.style.display='';rt.className='regla-tag nv0';rt.textContent='⚠️ Inicial mínima: 10% ('+sx+' '+fmt(minIni)+')';}
+    else if(ini>0&&nivel>=1){rt.style.display='';rt.className='regla-tag '+reglaCls(nivel);rt.textContent=reglaLabel(nivel);}
     else rt.style.display='none';
   }
 
-  const fw=g(`frac-wrap-${idx}`);
+  // Frac wrap
+  const fw=g('frac-wrap-'+idx);
   if(fw){
     if(maxFrac>0&&inicialValida){
       fw.style.display='';
       if(slot.ST.fracCuotas>maxFrac) slot.ST.fracCuotas=1;
-      [1,2,3,4,5].forEach(n=>{
-        const b=g(`frac-btn-${idx}-${n}`);
+      [1,2,3,4,5].forEach(function(n){
+        const b=g('frac-btn-'+idx+'-'+n);
         if(b){b.style.display=n<=maxFrac?'':'none';b.className='frac-btn'+(slot.ST.fracCuotas===n?' sel-'+th:'');}
       });
-      const fr=g(`frac-result-${idx}`), fv=g(`frac-val-${idx}`);
+      const fr=g('frac-result-'+idx), fv=g('frac-val-'+idx);
       if(fr&&fv){
-        if(slot.ST.fracCuotas>=2){fr.style.display='flex';fv.textContent=`${sx} ${fmt(ini/slot.ST.fracCuotas)} × ${slot.ST.fracCuotas}`;}
+        if(slot.ST.fracCuotas>=2){fr.style.display='flex';fv.textContent=sx+' '+fmt(ini/slot.ST.fracCuotas)+' × '+slot.ST.fracCuotas;}
         else fr.style.display='none';
       }
     } else fw.style.display='none';
   }
 
-  const sb=g(`saldo-bar-${idx}`), sv=g(`saldo-val-${idx}`);
-  if(sb&&sv){
-    if(inicialValida&&saldo>0){sb.style.display='flex';sv.textContent=`${sx} ${fmt(saldo)}`;}
+  // Saldo bar
+  const sb=g('saldo-bar-'+idx), sv2=g('saldo-val-'+idx);
+  if(sb&&sv2){
+    if(inicialValida&&saldo>0){sb.style.display='flex';sv2.textContent=sx+' '+fmt(saldo);}
     else sb.style.display='none';
   }
 
-  const rg=g(`ref-grid-${idx}`);
-  if(rg) rg.innerHTML=[10,15,20,25,30].map(pc=>`
-    <div style="background:white;border-radius:8px;padding:7px 5px;text-align:center;
-      border-top:3px solid ${pc>=25?'var(--green)':pc>=20?'#90caf9':pc>=15?'#b8c4f5':'#ffcc80'};">
-      <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:13px;color:var(--pb-dark);">${pc}%</div>
-      <div style="font-size:10px;color:#888;margin-top:1px;">${sx} ${fmt(Math.ceil(p*pc/100))}</div>
-    </div>`).join('');
+  // Ref grid — siempre visible
+  const rg=g('ref-grid-'+idx);
+  if(rg){
+    var refC=['#ffcc80','#b8c4f5','#90caf9','#4caf50','#4caf50'];
+    var rgHtml='';
+    [10,15,20,25,30].forEach(function(pc,i){
+      var amt=Math.ceil(p*pc/100);
+      rgHtml+='<div style="background:white;border-radius:8px;padding:7px 5px;text-align:center;border-top:3px solid '+refC[i]+';">'
+        +'<div style="font-family:Montserrat,sans-serif;font-weight:800;font-size:13px;color:#22285D;">'+pc+'%</div>'
+        +'<div style="font-size:10px;color:#888;margin-top:1px;">'+sx+' '+fmt(amt)+'</div>'
+        +'</div>';
+    });
+    rg.innerHTML=rgHtml;
+  }
 
-  const pw=g(`plan-wrap-${idx}`), av=g(`planes-aviso-${idx}`);
-  if(inicialValida&&saldo>0){
-    if(pw)pw.style.display=''; if(av)av.style.display='none';
-    // SI (excepcion)
-    const siv=g(`si-val-${idx}`), sis=g(`si-sub-${idx}`);
-    if(siv) siv.textContent=nSI>0?`${sx} ${fmt(cuotaSI)}`:'—';
-    if(sis) sis.textContent=nSI>0?`${nSI} cuotas sin interés`:'Ingresa número de cuotas';
-    // CI
-    const cv=g(`ci-val-${idx}`); if(cv) cv.textContent=nCI>0?`${sx} ${fmt(cuotaCI)}`:'—';
-    const cs=g(`ci-sub-${idx}`); if(cs) cs.textContent=nCI>0?`${nCI} cuotas`:'Ingresa número de cuotas';
+  // Plan wrap — visible cuando hay inicial válida O modo contado
+  const pw=g('plan-wrap-'+idx), av=g('planes-aviso-'+idx);
+  if(contadoActivo||inicialValida&&saldo>0){
+    if(pw) pw.style.display='';
+    if(av) av.style.display='none';
+    const siv=g('si-val-'+idx), sis=g('si-sub-'+idx);
+    if(siv) siv.textContent=nSI>0?sx+' '+fmt(cuotaSI):'—';
+    if(sis) sis.textContent=nSI>0?nSI+' cuotas sin interés':'Ingresa número de cuotas';
+    const cv=g('ci-val-'+idx); if(cv) cv.textContent=nCI>0?sx+' '+fmt(cuotaCI):'—';
+    const cs=g('ci-sub-'+idx); if(cs) cs.textContent=nCI>0?nCI+' cuotas':'Ingresa número de cuotas';
+    const pb=g('ci-card-'+idx); if(pb){const badge=pb.querySelector('.plan-badge');if(badge)badge.textContent='📅 Financiamiento · TEA '+teaEfectiva+'%';}
   } else {
-    if(pw)pw.style.display='none';
+    if(pw) pw.style.display='none';
     if(av){
-      if(ini>0&&!inicialValida){av.style.display='';av.textContent=`⚠️ Inicial mínima: 10%: ${sx} ${fmt(minIni)}`;}
+      if(ini>0&&!inicialValida){av.style.display='';av.textContent='⚠️ Inicial mínima: 10%: '+sx+' '+fmt(minIni);}
       else av.style.display='none';
     }
   }
 }
+
 
 // ── EXPORTAR PDF ──
 function exportPDF(){
@@ -1090,16 +1179,18 @@ function exportPDF(){
     const lot=proj.lots.find(l=>l.id===slot.lotId); if(!lot) return '';
     const precioOriginal=precioBase(lot);
     const p=precio(lot,slot.ST.precioCustom);
-    const descuento=otrosActivo&&slot.ST.precioCustom>0&&slot.ST.precioCustom<precioOriginal
-      ? precioOriginal-slot.ST.precioCustom : 0;
+    const descuento=slot.ST.precioCustom>0&&slot.ST.precioCustom<precioOriginal
+      ? precioOriginal-slot.ST.precioCustom : 0; // solo cuando baja
     const ini=slot.ST.inicialMonto;
     const pct=p>0?ini/p:0;
     const pctStr=(pct*100).toFixed(1)+'%';
     const saldo=Math.max(0,p-ini);
     const nCI=slot.ST.ciCuotas;
     const nSI=excepcionActiva?(slot.ST.siCuotas||0):0;
+    const tasa=getSlotTasa(slot);
+    const teaEfectiva=teaActiva?teaGlobal:22;
     let cuotaCI=0, cuotaSI=0;
-    if(nCI>0&&saldo>0) cuotaCI=saldo*TASA_MENSUAL/(1-Math.pow(1+TASA_MENSUAL,-nCI));
+    if(nCI>0&&saldo>0) cuotaCI=saldo*tasa/(1-Math.pow(1+tasa,-nCI));
     if(nSI>0&&saldo>0) cuotaSI=saldo/nSI;
 
     let extraBoxes='';
@@ -1154,7 +1245,7 @@ function exportPDF(){
     if(saldo>0&&nCI>0){planesHtml+=`
       <div style="background:#f4f6ff;border:1.5px solid #b8c4f5;border-radius:7px;padding:8px 11px;margin-top:5px;">
         <div style="font-family:Arial,sans-serif;font-weight:700;font-size:7px;letter-spacing:.8px;text-transform:uppercase;
-          color:#22285D;background:#b8c4f5;border-radius:20px;display:inline-block;padding:2px 8px;margin-bottom:6px;">FINANCIAMIENTO · TEA 22%</div>
+          color:#22285D;background:#b8c4f5;border-radius:20px;display:inline-block;padding:2px 8px;margin-bottom:6px;">FINANCIAMIENTO · TEA ${teaEfectiva}%</div>
         <div style="display:flex;justify-content:space-between;align-items:center;">
           <div>
             <div style="font-size:7px;color:#999;text-transform:uppercase;letter-spacing:.5px;margin-bottom:1px;">Cuota mensual</div>
@@ -1170,7 +1261,7 @@ function exportPDF(){
 
     const inicialValida=ini>=Math.ceil(p*0.10);
     let pagosHtml='';
-    if(otrosActivo){
+    if(contadoActivo){
       pagosHtml=`
         <div style="font-weight:700;font-size:8px;letter-spacing:1.2px;text-transform:uppercase;color:#22285D;
           margin:6px 0 5px;display:flex;align-items:center;gap:6px;">
@@ -1238,14 +1329,17 @@ function exportPDF(){
   const lotesHtml=activeSlots.map((slot,i)=>lotePdfBlock(slot,i+1)).join('');
 
   // Avisos de condiciones
-  const totalDescuento=otrosActivo?activeSlots.reduce((acc,slot)=>{
+  const totalDescuento=contadoActivo?activeSlots.reduce((acc,slot)=>{
     const lot=proj.lots.find(l=>l.id===slot.lotId); if(!lot) return acc;
     const po=precioBase(lot); const pc=slot.ST.precioCustom;
     return acc+(pc>0&&pc<po?po-pc:0);
   },0):0;
 
+  // Excepcion aviso: solo si hay cuotas SI activas (no solo por modificacion de precio)
+  const hayExcepcionSI = excepcionActiva && activeSlots.some(s=>s.ST.siCuotas>0);
+
   const avisosHtml=`
-    ${excepcionActiva?`
+    ${hayExcepcionSI?`
     <div style="background:#fdf0f0;border:1.5px solid #e74c3c;border-radius:8px;padding:9px 14px;margin-bottom:6px;">
       <div style="font-family:Arial,sans-serif;font-weight:700;font-size:9px;color:#c0392b;margin-bottom:3px;">
         ⚠️ AVISO SOBRE EXCEPCIÓN AUTORIZADA
@@ -1256,7 +1350,7 @@ function exportPDF(){
         en los montos, plazos o condiciones pactadas dejará sin efecto las excepciones aquí autorizadas.
       </div>
     </div>`:''}
-    ${otrosActivo&&totalDescuento>0?`
+    ${excepcionActiva&&totalDescuento>0?`
     <div style="background:#f9f0ff;border:1.5px solid #8e44ad;border-radius:8px;padding:9px 14px;margin-bottom:6px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
         <div style="font-family:Arial,sans-serif;font-weight:700;font-size:9px;color:#8e44ad;">
@@ -1270,6 +1364,16 @@ function exportPDF(){
         El descuento otorgado en esta cotización es válido <strong>si y solo si</strong> el pago se realiza 
         íntegramente al contado en un solo desembolso. El incumplimiento de esta condición dejará 
         sin efecto el descuento acordado.
+      </div>
+    </div>`:''}
+    ${teaActiva?`
+    <div style="background:#f0fdf4;border:1.5px solid #1a7a4a;border-radius:8px;padding:9px 14px;margin-bottom:6px;">
+      <div style="font-family:Arial,sans-serif;font-weight:700;font-size:9px;color:#1a7a4a;margin-bottom:3px;">
+        📊 TEA APLICADA: ${teaGlobal}% ANUAL
+      </div>
+      <div style="font-size:8px;color:#555;line-height:1.5;">
+        La tasa de interés indicada en esta cotización es válida <strong>si y solo si</strong> se mantienen 
+        las condiciones de financiamiento aquí pactadas.
       </div>
     </div>`:''}`;
 
@@ -1312,31 +1416,32 @@ function exportPDF(){
       const lot=proj.lots.find(l=>l.id===slot.lotId); if(!lot) return '';
       const precioOriginal=precioBase(lot);
       const p=precio(lot,slot.ST.precioCustom);
-      const desc=otrosActivo&&slot.ST.precioCustom>0&&slot.ST.precioCustom<precioOriginal
+      const desc=slot.ST.precioCustom>0&&slot.ST.precioCustom<precioOriginal
         ? precioOriginal-slot.ST.precioCustom : 0;
       const ini=slot.ST.inicialMonto;
       const pct=p>0?ini/p:0;
       const saldo=Math.max(0,p-ini);
       const nCI=slot.ST.ciCuotas;
       const nSI=excepcionActiva?(slot.ST.siCuotas||0):0;
+      const tasa=getSlotTasa(slot);
       let cuotaCI=0, cuotaSI=0;
-      if(nCI>0&&saldo>0) cuotaCI=saldo*TASA_MENSUAL/(1-Math.pow(1+TASA_MENSUAL,-nCI));
+      if(nCI>0&&saldo>0) cuotaCI=saldo*tasa/(1-Math.pow(1+tasa,-nCI));
       if(nSI>0&&saldo>0) cuotaSI=saldo/nSI;
       totalPrecioLista+=precioOriginal;
       totalPrecioDesc+=p;
       totalDescuentoTotal+=desc;
-      totalInicial+=otrosActivo?p:ini;
-      totalSaldo+=otrosActivo?0:saldo;
-      totalCuotaCI+=otrosActivo?0:(nSI>0?cuotaSI:cuotaCI);
+      totalInicial+=contadoActivo?p:ini;
+      totalSaldo+=contadoActivo?0:saldo;
+      totalCuotaCI+=contadoActivo?0:(nSI>0?cuotaSI:cuotaCI);
       const pctStr=(pct*100).toFixed(1)+'%';
 
-      if(otrosActivo){
+      if(contadoActivo){
         // Fila modo contado: lote / área / precio lista / precio con descuento / descuento
         return `
         <tr>
           <td style="padding:7px 9px;border-bottom:1px solid #eee;font-weight:700;font-size:11px;color:${TC_};">Lote ${lot.id}</td>
           <td style="padding:7px 9px;border-bottom:1px solid #eee;font-size:10px;color:#555;">${lot.area} m²${isPDM?' — E.'+lot.etapa:''}</td>
-          <td style="padding:7px 9px;border-bottom:1px solid #eee;font-size:11px;color:#888;text-align:right;text-decoration:${desc>0?'line-through':'none'};">${sx} ${fmt(precioOriginal)}</td>
+          <td style="padding:7px 9px;border-bottom:1px solid #eee;font-size:11px;color:#888;text-align:right;${desc>0?'text-decoration:line-through;':''}">${sx} ${fmt(precioOriginal)}</td>
           <td style="padding:7px 9px;border-bottom:1px solid #eee;font-family:Arial,sans-serif;font-weight:700;font-size:12px;color:#22285D;text-align:right;">${sx} ${fmt(p)}</td>
           <td style="padding:7px 9px;border-bottom:1px solid #eee;text-align:right;">
             ${desc>0
@@ -1386,7 +1491,7 @@ function exportPDF(){
     const tfootOtros=`
       <tr style="background:#f7f9fc;">
         <td colspan="2" style="padding:9px;font-family:Arial,sans-serif;font-weight:900;font-size:11px;color:#22285D;">TOTAL CONSOLIDADO</td>
-        <td style="padding:9px;text-align:right;font-family:Arial,sans-serif;font-weight:700;font-size:12px;color:#888;text-decoration:line-through;">${sx} ${fmt(totalPrecioLista)}</td>
+        <td style="padding:9px;text-align:right;font-family:Arial,sans-serif;font-weight:700;font-size:12px;color:#888;${totalDescuentoTotal>0?'text-decoration:line-through;':''}">${sx} ${fmt(totalPrecioLista)}</td>
         <td style="padding:9px;text-align:right;font-family:Arial,sans-serif;font-weight:900;font-size:13px;color:${TC_};">${sx} ${fmt(totalPrecioDesc)}</td>
         <td style="padding:9px;text-align:right;font-family:Arial,sans-serif;font-weight:900;font-size:13px;color:#8e44ad;">-${sx} ${fmt(totalDescuentoTotal)}</td>
       </tr>`;
@@ -1413,7 +1518,7 @@ function exportPDF(){
       <div style="display:flex;gap:8px;margin-bottom:10px;">
         <div style="flex:1;background:#f5f5f5;border-radius:10px;padding:12px 14px;text-align:center;">
           <div style="font-size:8px;color:#888;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;">Precio de Lista</div>
-          <div style="font-family:Arial,sans-serif;font-weight:700;font-size:16px;color:#888;text-decoration:line-through;">${sx} ${fmt(totalPrecioLista)}</div>
+          <div style="font-family:Arial,sans-serif;font-weight:700;font-size:${totalDescuentoTotal>0?16:0}px;color:#888;${totalDescuentoTotal>0?'text-decoration:line-through;':'display:none;'}">${sx} ${fmt(totalPrecioLista)}</div>
           <div style="font-size:9px;color:#aaa;margin-top:2px;">${activeSlots.length} lotes</div>
         </div>
         <div style="flex:1;background:#f9f0ff;border:2px solid #8e44ad;border-radius:10px;padding:12px 14px;text-align:center;">
@@ -1497,12 +1602,14 @@ function exportPDF(){
           margin-bottom:6px;display:flex;align-items:center;gap:6px;">
           Detalle por Lote<div style="flex:1;height:1px;background:#ddd;"></div></div>
         <table style="width:100%;border-collapse:collapse;margin-bottom:12px;font-size:10px;">
-          <thead>${otrosActivo?theadOtros:theadFin}</thead>
+          <thead>${contadoActivo?theadOtros:theadFin}</thead>
           <tbody>${resumenRows}</tbody>
-          <tfoot>${otrosActivo?tfootOtros:tfootFin}</tfoot>
+          <tfoot>${contadoActivo?tfootOtros:tfootFin}</tfoot>
         </table>
         <!-- Resumen inversión -->
-        ${otrosActivo?resumenInversionOtros:resumenInversionFin}
+        ${contadoActivo?resumenInversionOtros:resumenInversionFin}
+        <!-- Cuentas bancarias en hoja resumen -->
+        ${cuentasHtml}
         <!-- Footer -->
         ${footerHtml}
       </div>`;}
@@ -1544,8 +1651,8 @@ function exportPDF(){
 ${beneficiosHtml}
 ${lotesHtml}
 ${avisosHtml}
-${cuentasHtml}
-${footerHtml}
+${incluirResumen ? '' : cuentasHtml}
+${incluirResumen ? '' : footerHtml}
 ${resumenHtml}
 <div class="no-print" style="text-align:center;margin-top:16px;">
   <button onclick="window.print()" style="background:#4519FF;color:white;border:none;border-radius:8px;
