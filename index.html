@@ -340,6 +340,29 @@ footer strong{color:var(--pb-purple);}
       </div>
       <div id="lotes-slots"></div>
     </div>
+    <!-- CAMPAÑA 2026-4 -->
+    <div style="margin-top:14px;border-top:1px dashed #e0e0e0;padding-top:14px;">
+      <label style="display:flex;align-items:center;gap:10px;cursor:pointer;background:linear-gradient(135deg,#fef3c7,#fde68a);border:2px solid #f59e0b;border-radius:12px;padding:12px 14px;">
+        <input type="checkbox" id="chk-campana" onchange="toggleCampana(this)"
+          style="width:20px;height:20px;cursor:pointer;accent-color:#d97706;">
+        <div>
+          <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:14px;color:#b45309;letter-spacing:.3px;">
+            🎯 CAMPAÑA 2026-4
+          </div>
+          <div style="font-size:11px;color:#92400e;margin-top:2px;line-height:1.4;">
+            Financiamiento sin interés según inicial. Aplica a Brisas de Naylamp y Puerta del Mar.
+          </div>
+        </div>
+      </label>
+      <div id="campana-badge" style="display:none;margin-top:8px;background:#fffbeb;border:1.5px solid #f59e0b;border-radius:10px;padding:10px 14px;">
+        <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;color:#b45309;margin-bottom:6px;">🎯 Campaña 2026-4 activa · condiciones:</div>
+        <div style="font-size:10px;color:#78350f;line-height:1.7;">
+          • <strong>Inicial 30% o más</strong> → hasta <strong>48 cuotas</strong>, todas SIN interés<br>
+          • <strong>Inicial 21% a 29%</strong> → hasta <strong>36 cuotas</strong>, todas SIN interés<br>
+          • <strong>Inicial 10% a 19%</strong> → hasta <strong>120 cuotas</strong>, primeras <strong>6 SIN interés</strong> (resto TEA 22%)
+        </div>
+      </div>
+    </div>
     <!-- OPCIÓN HOJA RESUMEN -->
     <div style="margin-top:14px;border-top:1px dashed #e0e0e0;padding-top:14px;">
       <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
@@ -494,6 +517,7 @@ const DATA={
       {id:"B10",area:300,obs:"—",usd:23486,pen:82200},
       {id:"B11",area:300,obs:"—",usd:23486,pen:82200},
       {id:"B13",area:300,obs:"CERCA AV INGRESO",usd:23486,pen:82200},
+      {id:"B14",area:300,obs:"CERCA AV INGRESO",usd:24057,pen:84200},
       {id:"B16",area:300,obs:"ESQUINA AV INGRESO",usd:24200,pen:84700},
       {id:"C3",area:300,obs:"B CERCA AV INGRESO",usd:23772,pen:83200},
       {id:"C6",area:300,obs:"—",usd:23629,pen:82700},
@@ -527,8 +551,7 @@ const DATA={
       {id:"F3",area:300.87,obs:"—",usd:24061,pen:84213},
       {id:"F4",area:307.34,obs:"—",usd:24087,pen:84303},
       {id:"F5",area:335.48,obs:"—",usd:26342,pen:92197},
-      {id:"F7",area:343.88,obs:"—",usd:26996,pen:94485},
-      {id:"F9",area:300,obs:"—",usd:24058,pen:84200}
+      {id:"F7",area:343.88,obs:"—",usd:26996,pen:94485}
     ]},
   pdm:{name:"Puerta del Mar",location:"Pimentel",theme:"pdm",
     lots:[
@@ -728,6 +751,16 @@ let contadoActivo=false;   // precio solo a la baja + pago contado
 let teaActiva=false;
 let teaGlobal=22;
 let etapa1Desbloqueada=false;
+let campanaActiva=false; // CAMPAÑA 2026-4
+
+// Devuelve las condiciones de la campaña según el % de inicial, o null si no aplica
+function campanaCondiciones(pct){
+  if(!campanaActiva) return null;
+  if(pct>=0.30) return {maxMeses:48, siCuotas:'todas', label:'🎯 Campaña 2026-4 · 30%+ → hasta 48 cuotas SIN interés'};
+  if(pct>=0.21) return {maxMeses:36, siCuotas:'todas', label:'🎯 Campaña 2026-4 · 21-29% → hasta 36 cuotas SIN interés'};
+  if(pct>=0.10) return {maxMeses:120, siCuotas:6, label:'🎯 Campaña 2026-4 · 10-19% → hasta 120 cuotas, primeras 6 SIN interés'};
+  return null;
+}
 const PASS_EXCEPCION='1301';
 
 // ── MONEDA / PROYECTO ──
@@ -899,6 +932,13 @@ function desactivarEtapa1(){
   });
   loteSlots.forEach((_,i)=>renderSlotSelector(i));
   renderAllCards();
+}
+
+function toggleCampana(chk){
+  campanaActiva=chk.checked;
+  const badge=document.getElementById('campana-badge');
+  if(badge) badge.style.display=chk.checked?'block':'none';
+  renderAllSlots();
 }
 
 function toggleTEA(chk){
@@ -1079,6 +1119,7 @@ function renderCard(idx){
     +'text-transform:uppercase;color:var(--pb-dark);margin-bottom:8px;">📊 Referencia de Iniciales</div>'
     +'<div id="ref-grid-'+idx+'" style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px;"></div>'
     +'</div>'
+    +'<div id="camp-tag-'+idx+'" style="display:none;background:#fef3c7;border:1.5px solid #f59e0b;border-radius:10px;padding:8px 12px;margin-bottom:10px;font-family:\'Montserrat\',sans-serif;font-weight:700;font-size:11px;color:#b45309;line-height:1.4;"></div>'
     +'<div id="planes-aviso-'+idx+'" class="aviso" style="display:none;"></div>'
     +'<div id="plan-wrap-'+idx+'" style="display:none;">'
     +siCardHtml
@@ -1150,12 +1191,45 @@ function updateSlotCalc(idx){
   const pctStr=(pct*100).toFixed(1)+'%';
   const saldo=Math.max(0,p-ini);
   const nivel=reglaNivel(pct);
-  const nCI=slot.ST.ciCuotas||0;
+  const camp=campanaCondiciones(pct);
+  let nCI=slot.ST.ciCuotas||0;
   const nSI=excepcionActiva?(slot.ST.siCuotas||0):0;
   const tasa=getSlotTasa(slot);
   const teaEfectiva=teaActiva?teaGlobal:22;
   let cuotaCI=0, cuotaSI=0;
-  if(nCI>0&&saldo>0) cuotaCI=saldo*tasa/(1-Math.pow(1+tasa,-nCI));
+  // Con campaña activa: limitar meses y aplicar sin interés según tramo
+  if(camp){
+    if(nCI>camp.maxMeses) nCI=camp.maxMeses;
+    if(nCI>0&&saldo>0){
+      if(camp.siCuotas==='todas'){
+        cuotaCI=saldo/nCI; // todas sin interés
+      } else {
+        // primeras N sin interés + resto con TEA 22%
+        const nSinInt=Math.min(camp.siCuotas,nCI);
+        const sinIntMonto=saldo*(nSinInt/nCI); // parte de capital en cuotas sin interés
+        const cuotaSin=saldo/nCI; // cada cuota sin interés amortiza capital parejo
+        const saldoRestante=saldo-cuotaSin*nSinInt;
+        const nConInt=nCI-nSinInt;
+        if(nConInt>0&&saldoRestante>0){
+          const cuotaCon=saldoRestante*tasa/(1-Math.pow(1+tasa,-nConInt));
+          // Guardamos ambas para mostrar; cuotaCI será la cuota con interés (la que se paga desde la 7ma)
+          cuotaCI=cuotaCon;
+          slot._campCuotaSin=cuotaSin;
+          slot._campCuotaCon=cuotaCon;
+          slot._campNSin=nSinInt;
+          slot._campNCon=nConInt;
+        } else {
+          cuotaCI=cuotaSin;
+          slot._campCuotaSin=cuotaSin;
+          slot._campCuotaCon=0;
+          slot._campNSin=nCI;
+          slot._campNCon=0;
+        }
+      }
+    }
+  } else {
+    if(nCI>0&&saldo>0) cuotaCI=saldo*tasa/(1-Math.pow(1+tasa,-nCI));
+  }
   if(nSI>0&&saldo>0) cuotaSI=saldo/nSI;
   const inicialValida=ini>=minIni;
   const maxFrac=ini>=Math.ceil(p*0.25)?5:ini>=Math.ceil(p*0.20)?4:ini>=Math.ceil(p*0.15)?3:inicialValida?2:0;
@@ -1217,6 +1291,13 @@ function updateSlotCalc(idx){
     rg.innerHTML=rgHtml;
   }
 
+  // Campaña tag
+  const ct=g('camp-tag-'+idx);
+  if(ct){
+    if(camp&&inicialValida){ct.style.display='';ct.textContent=camp.label;}
+    else ct.style.display='none';
+  }
+
   // Plan wrap — visible cuando hay inicial válida O modo contado
   const pw=g('plan-wrap-'+idx), av=g('planes-aviso-'+idx);
   if(contadoActivo||inicialValida&&saldo>0){
@@ -1225,9 +1306,37 @@ function updateSlotCalc(idx){
     const siv=g('si-val-'+idx), sis=g('si-sub-'+idx);
     if(siv) siv.textContent=nSI>0?sx+' '+fmt(cuotaSI):'—';
     if(sis) sis.textContent=nSI>0?nSI+' cuotas sin interés':'Ingresa número de cuotas';
-    const cv=g('ci-val-'+idx); if(cv) cv.textContent=nCI>0?sx+' '+fmt(cuotaCI):'—';
-    const cs=g('ci-sub-'+idx); if(cs) cs.textContent=nCI>0?nCI+' cuotas':'Ingresa número de cuotas';
-    const pb=g('ci-card-'+idx); if(pb){const badge=pb.querySelector('.plan-badge');if(badge)badge.textContent='📅 Financiamiento · TEA '+teaEfectiva+'%';}
+    const cv=g('ci-val-'+idx); const cs=g('ci-sub-'+idx);
+    const cf=g('ci-field-'+idx);
+    if(camp){
+      // Limitar el input de cuotas al máximo de la campaña
+      if(cf){cf.max=camp.maxMeses;}
+      if(camp.siCuotas==='todas'){
+        if(cv) cv.textContent=nCI>0?sx+' '+fmt(cuotaCI):'—';
+        if(cs) cs.textContent=nCI>0?(nCI+' cuotas SIN interés (máx. '+camp.maxMeses+'m)'):('Ingresa cuotas (máx. '+camp.maxMeses+'m)');
+      } else {
+        // tramo 10-19%: mostrar 6 sin interés + resto con interés
+        if(nCI>0 && slot._campNCon>0){
+          if(cv) cv.textContent=sx+' '+fmt(slot._campCuotaSin);
+          if(cs) cs.innerHTML='<strong>'+slot._campNSin+' cuotas</strong> SIN interés de '+sx+' '+fmt(slot._campCuotaSin)+'<br>luego <strong>'+slot._campNCon+' cuotas</strong> de '+sx+' '+fmt(slot._campCuotaCon);
+        } else if(nCI>0){
+          if(cv) cv.textContent=sx+' '+fmt(cuotaCI);
+          if(cs) cs.textContent=nCI+' cuotas SIN interés';
+        } else {
+          if(cv) cv.textContent='—';
+          if(cs) cs.textContent='Ingresa cuotas (máx. '+camp.maxMeses+'m)';
+        }
+      }
+    } else {
+      if(cf){cf.max=120;}
+      if(cv) cv.textContent=nCI>0?sx+' '+fmt(cuotaCI):'—';
+      if(cs) cs.textContent=nCI>0?nCI+' cuotas':'Ingresa número de cuotas';
+    }
+    const pb=g('ci-card-'+idx); if(pb){const badge=pb.querySelector('.plan-badge');if(badge){
+      if(camp&&camp.siCuotas==='todas') badge.textContent='🎯 Campaña 2026-4 · SIN interés';
+      else if(camp) badge.textContent='🎯 Campaña 2026-4 · 6 cuotas sin interés + TEA '+teaEfectiva+'%';
+      else badge.textContent='📅 Financiamiento · TEA '+teaEfectiva+'%';
+    }}
   } else {
     if(pw) pw.style.display='none';
     if(av){
@@ -1326,12 +1435,36 @@ function exportPDF(){
     const pct=p>0?ini/p:0;
     const pctStr=(pct*100).toFixed(1)+'%';
     const saldo=Math.max(0,p-ini);
-    const nCI=slot.ST.ciCuotas;
+    let nCI=slot.ST.ciCuotas;
     const nSI=excepcionActiva?(slot.ST.siCuotas||0):0;
     const tasa=getSlotTasa(slot);
     const teaEfectiva=teaActiva?teaGlobal:22;
+    const camp=campanaCondiciones(pct);
     let cuotaCI=0, cuotaSI=0;
-    if(nCI>0&&saldo>0) cuotaCI=saldo*tasa/(1-Math.pow(1+tasa,-nCI));
+    // Datos de campaña para el PDF
+    let campInfo=null;
+    if(camp&&saldo>0&&nCI>0){
+      if(nCI>camp.maxMeses) nCI=camp.maxMeses;
+      if(camp.siCuotas==='todas'){
+        cuotaCI=saldo/nCI;
+        campInfo={tipo:'todas',nCuotas:nCI,cuota:cuotaCI,maxMeses:camp.maxMeses};
+      } else {
+        const nSin=Math.min(camp.siCuotas,nCI);
+        const cuotaSin=saldo/nCI;
+        const saldoRest=saldo-cuotaSin*nSin;
+        const nCon=nCI-nSin;
+        if(nCon>0&&saldoRest>0){
+          const cuotaCon=saldoRest*tasa/(1-Math.pow(1+tasa,-nCon));
+          campInfo={tipo:'mixto',nSin:nSin,cuotaSin:cuotaSin,nCon:nCon,cuotaCon:cuotaCon,maxMeses:camp.maxMeses};
+          cuotaCI=cuotaCon;
+        } else {
+          cuotaCI=cuotaSin;
+          campInfo={tipo:'todas',nCuotas:nCI,cuota:cuotaSin,maxMeses:camp.maxMeses};
+        }
+      }
+    } else {
+      if(nCI>0&&saldo>0) cuotaCI=saldo*tasa/(1-Math.pow(1+tasa,-nCI));
+    }
     if(nSI>0&&saldo>0) cuotaSI=saldo/nSI;
 
     let extraBoxes='';
@@ -1383,7 +1516,49 @@ function exportPDF(){
           </div>
         </div>
       </div>`;}
-    if(saldo>0&&nCI>0){planesHtml+=`
+    if(saldo>0&&nCI>0&&campInfo){
+      // Bloque de CAMPAÑA 2026-4
+      if(campInfo.tipo==='todas'){planesHtml+=`
+      <div style="background:#fffbeb;border:1.5px solid #f59e0b;border-radius:7px;padding:8px 11px;margin-top:5px;">
+        <div style="font-family:Arial,sans-serif;font-weight:700;font-size:7px;letter-spacing:.8px;text-transform:uppercase;
+          color:white;background:#d97706;border-radius:20px;display:inline-block;padding:2px 8px;margin-bottom:6px;">🎯 CAMPAÑA 2026-4 · SIN INTERÉS</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-size:7px;color:#999;text-transform:uppercase;letter-spacing:.5px;margin-bottom:1px;">Cuota mensual</div>
+            <div style="font-family:Arial,sans-serif;font-weight:900;font-size:20px;color:#b45309;">${sx} ${fmt(campInfo.cuota)}</div>
+            <span style="font-family:Arial,sans-serif;font-weight:900;font-size:14px;color:white;background:#d97706;border-radius:6px;padding:3px 10px;">${campInfo.nCuotas} cuotas SIN interés</span>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:7px;color:#888;">Saldo financiado</div>
+            <div style="font-family:Arial,sans-serif;font-weight:700;font-size:11px;color:#22285D;">${sx} ${fmt(saldo)}</div>
+          </div>
+        </div>
+        <div style="font-size:7px;color:#92400e;margin-top:5px;">Total financiamiento ${campInfo.nCuotas} meses · máx. ${campInfo.maxMeses} meses</div>
+      </div>`;}
+      else {planesHtml+=`
+      <div style="background:#fffbeb;border:1.5px solid #f59e0b;border-radius:7px;padding:8px 11px;margin-top:5px;">
+        <div style="font-family:Arial,sans-serif;font-weight:700;font-size:7px;letter-spacing:.8px;text-transform:uppercase;
+          color:white;background:#d97706;border-radius:20px;display:inline-block;padding:2px 8px;margin-bottom:6px;">🎯 CAMPAÑA 2026-4</div>
+        <div style="display:flex;gap:8px;">
+          <div style="flex:1;background:white;border-radius:6px;padding:6px 9px;border-left:3px solid #16a34a;">
+            <div style="font-size:7px;color:#16a34a;text-transform:uppercase;letter-spacing:.5px;font-weight:700;">Primeras ${campInfo.nSin} cuotas · SIN interés</div>
+            <div style="font-family:Arial,sans-serif;font-weight:900;font-size:16px;color:#15803d;">${sx} ${fmt(campInfo.cuotaSin)}</div>
+          </div>
+          <div style="flex:1;background:white;border-radius:6px;padding:6px 9px;border-left:3px solid #6366f1;">
+            <div style="font-size:7px;color:#6366f1;text-transform:uppercase;letter-spacing:.5px;font-weight:700;">Siguientes ${campInfo.nCon} cuotas · TEA ${teaEfectiva}%</div>
+            <div style="font-family:Arial,sans-serif;font-weight:900;font-size:16px;color:#4338ca;">${sx} ${fmt(campInfo.cuotaCon)}</div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:5px;">
+          <span style="font-family:Arial,sans-serif;font-weight:900;font-size:12px;color:white;background:#d97706;border-radius:6px;padding:3px 10px;">${campInfo.nSin+campInfo.nCon} cuotas en total</span>
+          <div style="text-align:right;">
+            <div style="font-size:7px;color:#888;">Saldo financiado</div>
+            <div style="font-family:Arial,sans-serif;font-weight:700;font-size:11px;color:#22285D;">${sx} ${fmt(saldo)}</div>
+          </div>
+        </div>
+      </div>`;}
+    }
+    else if(saldo>0&&nCI>0){planesHtml+=`
       <div style="background:#f4f6ff;border:1.5px solid #b8c4f5;border-radius:7px;padding:8px 11px;margin-top:5px;">
         <div style="font-family:Arial,sans-serif;font-weight:700;font-size:7px;letter-spacing:.8px;text-transform:uppercase;
           color:#22285D;background:#b8c4f5;border-radius:20px;display:inline-block;padding:2px 8px;margin-bottom:6px;">FINANCIAMIENTO · TEA ${teaEfectiva}%</div>
