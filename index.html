@@ -639,7 +639,15 @@ const PASS_EXCEPCION='1301';
 // Opciones retiradas (excepción, contado, TEA, campaña): constantes neutras para la lógica dependiente
 const excepcionActiva=false, contadoActivo=false, teaActiva=false, teaGlobal=22, campanaActiva=false;
 function campanaCondiciones(pct){ return null; }
-function slotPrecioInput(idx,v){}
+function slotPrecioInput(idx,v){
+  if(!activeProject) return;
+  const lot=DATA[activeProject].lots.find(l=>l.id===loteSlots[idx].lotId); if(!lot) return;
+  const base=precioBase(lot);
+  const val=parseFloat(v)||0;
+  // Solo permitir precio mayor al original (modificación interna, no evidenciada en el PDF)
+  loteSlots[idx].ST.precioCustom=(val>base)?val:0;
+  updateSlotCalc(idx);
+}
 function slotSiInput(idx,v){}
 
 // Inicial mínima: 10% del precio. Oculto: si 10% supera S/10,000, baja a S/10,000.
@@ -816,8 +824,15 @@ function renderCard(idx){
   else if(isPDM) ubicTag='<div class="ubicacion-tag">Vista: '+lot.vista+'</div>';
 
 
-  // Precio fijo (sin edición)
-  let precioCampoHtml='';
+  // Precio modificable (solo incrementar, interno — no se evidencia en el exportable)
+  let precioCampoHtml='<div style="margin-top:6px;display:flex;align-items:center;gap:6px;justify-content:center;">'
+    +'<span style="font-size:11px;opacity:.6;">✏️ Modificar precio:</span>'
+    +'<div style="position:relative;">'
+    +'<span style="position:absolute;left:9px;top:50%;transform:translateY(-50%);font-weight:700;font-size:12px;color:var(--pb-dark);">'+sx+'</span>'
+    +'<input type="number" value="'+(slot.ST.precioCustom||p)+'" min="'+precioOriginal+'" step="1"'
+    +' style="padding:5px 8px 5px 24px;border-radius:7px;border:1.5px solid rgba(0,0,0,.15);background:rgba(0,0,0,.03);font-size:12px;color:var(--pb-dark);width:140px;outline:none;"'
+    +' oninput="slotPrecioInput('+idx+',this.value)"/>'
+    +'</div></div>';
 
   // Bloque 100% contado
   let contadoHtml='';
